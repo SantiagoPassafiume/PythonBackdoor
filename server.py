@@ -1,5 +1,6 @@
 import socket
 import json
+import os
 
 
 def sender(data):
@@ -23,6 +24,8 @@ def target_communication():
         sender(command)
         if command == "quit":
             break
+        elif command == "clear":
+            os.system("clear")
         elif command[:3] == "cd ":
             pass
         else:

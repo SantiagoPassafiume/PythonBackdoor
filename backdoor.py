@@ -37,6 +37,8 @@ def shell():
         command = receiver()
         if command == "quit":
             break
+        elif command == "clear":
+            pass
         elif command[:3] == "cd ":
             os.chdir(command[3:])
         else:
