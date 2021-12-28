@@ -32,7 +32,7 @@ def download_file(file_name):
         while chunk:
             f.write(chunk)
             try:
-                chunk = target.recv(1024)
+                chunk = sock.recv(1024)
             except socket.timeout as err:
                 break
         sock.settimeout(None)
